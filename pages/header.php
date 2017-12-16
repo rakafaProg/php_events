@@ -1,3 +1,10 @@
+<?php session_start();
+  if(isset($_SESSION['user-id']) and isset($_SESSION['user-name'])) {
+    $userId = $_SESSION['user-id'];
+    $userName = $_SESSION['user-name'];
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +19,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
   -->
     <link rel="stylesheet" href="../semantic-ui/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://semantic-ui.com/dist/components/icon.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="../semantic-ui/semantic.min.js"></script>
 
@@ -27,11 +36,15 @@
 
   <a class="item ui header teal" href="events.php">Events</a>
   <a class="item ui header teal" href="add_event.php">Add Event</a>
-  <a class="item ui header teal" href="login.php">Sign-in</a>
-  <a class="item ui header teal" href="register.php">Sign-up</a>
-  <div class="item ui right header blue">Wellcome Ron </div>
-  <a class="item ui header blue">Sign-out</a>
+  <a class="item ui header teal <?php if(isset($userName)) echo 'invisible'; ?> " href="login.php">Log-in</a>
+  <a class="item ui header teal <?php if(isset($userName)) echo 'invisible'; ?> " href="register.php">Register</a>
+  <div class="item ui right header blue <?php if(!isset($userName)) echo 'invisible'; ?> ">
+    <?php if(isset($userName)) echo "Wellcome ".$userName; ?>
+  </div>
+  <a class="item ui header blue <?php if(!isset($userName)) echo 'invisible'; ?> " href="log-out.php">Sign-out</a>
 
 </div>
 <p> .
 </p>
+
+<main>

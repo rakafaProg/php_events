@@ -9,10 +9,10 @@
             try {
                 $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                
+
                 $resultsArray = $conn->query($sql);
                 return $resultsArray;
-                
+
             }
             catch(PDOException $e)
             {
@@ -25,13 +25,13 @@
     class DataToObject {
         static function createUsers($sqlArray) {
             $usersArray = [];
-           
+
             foreach ($sqlArray as $user) {
-                array_push($usersArray, 
+                array_push($usersArray,
                     new User ([
-                        'id'=>$user['id'], 
-                        'name'=>$user['name'], 
-                        'email'=>$user['email'], 
+                        'id'=>$user['id'],
+                        'name'=>$user['name'],
+                        'email'=>$user['email'],
                         'password'=>$user['password']
                     ])
                 );
@@ -40,12 +40,12 @@
         }
         static function createEvents($sqlArray) {
             $eventsArray = [];
-           
+          
             foreach ($sqlArray as $event) {
-                array_push($eventsArray, 
+                array_push($eventsArray,
                     new Event ([
-                        'id'=>$event['id'], 
-                        'name'=>$event['name'], 
+                        'id'=>$event['id'],
+                        'name'=>$event['name'],
                         'date'=>$event['date']
                      ])
                 );
@@ -94,7 +94,7 @@
             $this->id = $params['id'];
             $this->name = $params['name'];
             $this->email = $params['date'];
-            
+
         }
 
         function getId () {
@@ -110,6 +110,6 @@
         }
 
     }
-    
+
 
 ?>

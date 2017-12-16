@@ -21,8 +21,8 @@
         <?php
             include "data/data.php";
             $data = new Data();
-            $myUsers = DataToObject::createUsers($data->fetch('SELECT * FROM ls32_users'));
-            
+            $myUsers = DataToObject::createUsers($data->fetch('SELECT * FROM users'));
+
            echo '<h1>Users</h1>';
            echo '<table><thead><tr><th>Id</th>
            <th>Name</th>
@@ -35,20 +35,20 @@
                 '<td>'.$user->getName().'</td>'.
                 '<td>'.$user->getEmail().'</td>'.
                 '<td>'.$user->getPassword().'</td></tr>';
-                
+
             }
 
             echo '</tbody></table>';
 
-            $myEvents = DataToObject::createEvents($data->fetch('SELECT * FROM ls32_events'));
-            
+            $myEvents = DataToObject::createEvents($data->fetch('SELECT * FROM events'));
+
 
             echo '<h1>Events</h1>';
             foreach ($myEvents as $event) {
                 echo $event->getId().' ';
                 echo $event->getName().' ';
                 echo $event->getDate().' ';
-                
+
                 echo '<br />';
             }
          ?>

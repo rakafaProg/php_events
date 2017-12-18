@@ -24,6 +24,8 @@
 
     class DataToObject {
         static function createUsers($sqlArray) {
+            if($sqlArray->rowCount()==0)
+              return false;
             $usersArray = [];
 
             foreach ($sqlArray as $user) {
@@ -37,10 +39,14 @@
                 );
             }
             return $usersArray;
+
         }
         static function createEvents($sqlArray) {
+          if($sqlArray->rowCount()==0)
+            return false;
+
             $eventsArray = [];
-          
+
             foreach ($sqlArray as $event) {
                 array_push($eventsArray,
                     new Event ([

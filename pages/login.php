@@ -1,8 +1,25 @@
 <?php require_once "header.php";
+
+require_once '../data/data.php';
   if(isset($_POST['email']) &&  isset($_POST['password'])) {
-    $_SESSION['user-name'] = $_POST['email'];
-    $_SESSION['user-id'] = 'x';
-    header("Refresh:0; url=log-in-success.php");
+    $data = new Data();
+    $myUser = DataToObject::createUsers($data->fetch(
+      'SELECT * FROM users
+      WHERE
+        email = "'.$_POST['email'].'"
+        AND password = "'.MD5($_POST['password']).'"'
+      ));
+
+
+    if($myUser) {
+      $_SESSION['user-name'] = $myUser[0]->getName();
+      $_SESSION['user-id'] = $myUser[0]->getId();
+      header("Refresh:0; url=log-in-success.php");
+
+    } else {
+      $invalidPassword = true;
+    }
+
   }
 
 ?>
@@ -12,6 +29,7 @@
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
+
     <h2 class="ui teal image header">
       <img src="../images/logo.png" class="image">
       <div class="content">
@@ -34,11 +52,18 @@
         </div>
         <div class="ui fluid large teal submit button">Login</div>
       </div>
-
       <div class="ui error message"></div>
-
     </form>
-
+    
+    <div class="ui icon warning message <?php if(!isset($invalidPassword)) echo 'invisible'; ?>">
+      <i class="lock icon"></i>
+      <div class="content">
+        <div class="header">
+          Login failed!
+        </div>
+        <p>You might have misspelled your email or password!</p>
+      </div>
+    </div>
     <div class="ui message">
       New to us? <a href="register.php">Sign Up</a>
     </div>

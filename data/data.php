@@ -19,6 +19,26 @@
                 return $e->getMessage();
             }
         }
+
+        function insertData($sql) {
+            try {
+                $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $result = $conn->query($sql);
+
+                if($result)
+                  return true;
+                else
+                  return false;
+
+
+            }
+            catch(PDOException $e)
+            {
+                return $e->getMessage();
+            }
+        }
     }
 
 
@@ -49,11 +69,7 @@
 
             foreach ($sqlArray as $event) {
                 array_push($eventsArray,
-                    new Event ([
-                        'id'=>$event['id'],
-                        'name'=>$event['name'],
-                        'date'=>$event['date']
-                     ])
+                    new Event ($event)
                 );
             }
             return $eventsArray;
@@ -95,12 +111,13 @@
         private $id;
         private $name;
         private $date;
+        private $description;
 
         function __construct ($params) {
             $this->id = $params['id'];
             $this->name = $params['name'];
-            $this->email = $params['date'];
-
+            $this->date = $params['date'];
+            $this->description = $params['description'];
         }
 
         function getId () {
@@ -113,6 +130,10 @@
 
         function getDate () {
             return $this->date;
+        }
+
+        function getDescription () {
+            return $this->description;
         }
 
     }

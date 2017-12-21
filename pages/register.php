@@ -1,24 +1,64 @@
 <?php require_once "header.php";
 
 require_once '../data/data.php';
-  if(isset($_POST['email']) &&  isset($_POST['password'])) {
-    $data = new Data();
-    $myUser = DataToObject::createUsers($data->fetch(
-      'SELECT * FROM users
-      WHERE
-        email = "'.$_POST['email'].'"
-        AND password = "'.MD5($_POST['password']).'"'
-      ));
+  if(isset($_POST['email']) &&  isset($_POST['username']) &&
+  isset($_POST['password']) &&  isset($_POST['passwordrepeat'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $passwordrepeat = $_POST['passwordrepeat'];
 
-
-    if($myUser) {
-      $_SESSION['user-name'] = $myUser[0]->getName();
-      $_SESSION['user-id'] = $myUser[0]->getId();
-      header("Refresh:0; url=log-in-success.php");
-
-    } else {
+    if($passwordrepeat != $password) {
       $invalidPassword = true;
+      $errorMassage = "Passwords fields are not the same!";
+
     }
+
+    else {
+      $data = new Data();
+      $myUser = DataToObject::createUsers($data->fetch(
+        'SELECT * FROM users
+        WHERE
+          email = "'.$email.'"'
+        ));
+
+
+      if(!$myUser) {
+        /*$_SESSION['user-name'] = $myUser[0]->getName();
+        $_SESSION['user-id'] = $myUser[0]->getId();*/
+
+        $res=$data->insertData('INSERT INTO `users`(`name`, `email`, `password`) VALUES ("'.$username.'","'.$email.'","'.MD5($password).'")');
+        if($res==1) {
+          echo '
+          <div class="ui ten column grid">
+            <div class="row">
+              <div class="column"></div>
+              <div class="twelve wide column">
+                <div class="ui success message huge">
+                  <div class="header">
+                    Wellcome!
+                  </div>
+                  <p>Your have successfully registered.</p>
+                  <p>To start using the site, please log in.</p>
+                  <p><a href="login.php">Log in</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          ';
+
+          die;
+        } else {
+          $invalidPassword = true;
+          $errorMassage = "Unknown error. Please try again.";
+        }
+
+      } else {
+        $invalidPassword = true;
+        $errorMassage = "There is allrady an account with that email.";
+      }
+    }
+
 
   }
 
@@ -73,7 +113,7 @@ require_once '../data/data.php';
         <div class="header">
           Login failed!
         </div>
-        <p>There is allrady an account with that email.</p>
+        <p><?php if(isset($errorMassage)) echo $errorMassage; ?></p>
       </div>
     </div>
     <div class="ui message">

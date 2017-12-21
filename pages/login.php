@@ -4,7 +4,7 @@ require_once '../data/data.php';
   if(isset($_POST['email']) &&  isset($_POST['password'])) {
     $data = new Data();
     $myUser = DataToObject::createUsers($data->fetch(
-      'SELECT * FROM users
+      'SELECT * FROM ls32_users
       WHERE
         email = "'.$_POST['email'].'"
         AND password = "'.MD5($_POST['password']).'"'

@@ -112,12 +112,14 @@
         private $name;
         private $date;
         private $description;
+        private $paticipation;
 
         function __construct ($params) {
             $this->id = $params['id'];
             $this->name = $params['name'];
             $this->date = $params['date'];
             $this->description = $params['description'];
+            $this->paticipation = $params['id_user'];
         }
 
         function getId () {
@@ -134,6 +136,10 @@
 
         function getDescription () {
             return $this->description;
+        }
+
+        function getParticipation () {
+            return $this->paticipation;
         }
 
     }

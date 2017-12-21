@@ -17,7 +17,7 @@ require_once '../data/data.php';
     else {
       $data = new Data();
       $myUser = DataToObject::createUsers($data->fetch(
-        'SELECT * FROM users
+        'SELECT * FROM ls32_users
         WHERE
           email = "'.$email.'"'
         ));
@@ -27,7 +27,7 @@ require_once '../data/data.php';
         /*$_SESSION['user-name'] = $myUser[0]->getName();
         $_SESSION['user-id'] = $myUser[0]->getId();*/
 
-        $res=$data->insertData('INSERT INTO `users`(`name`, `email`, `password`) VALUES ("'.$username.'","'.$email.'","'.MD5($password).'")');
+        $res=$data->insertData('INSERT INTO `ls32_users`(`name`, `email`, `password`) VALUES ("'.$username.'","'.$email.'","'.MD5($password).'")');
         if($res==1) {
           echo '
           <div class="ui ten column grid">

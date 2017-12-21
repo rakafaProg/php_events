@@ -1,8 +1,20 @@
 <?php require_once "header.php";
 require_once '../data/data.php';
+
+
+if(isset($userId)) {
+  $sql = 'SELECT `id`, `date`, `name`, `description` ,`id_user`, `id_event`
+  FROM `ls32_events`
+  LEFT JOIN `ls32_user_events` ON `id_event` = `id` AND `id_user`='.$userId;
+} else {
+  $sql = '
+    SELECT `id`, `date`, `name`, `description` ,NULL as id_user
+  FROM `ls32_events`
+  ';
+}
 $data = new Data();
 $myEvents = DataToObject::createEvents($data->fetch(
-  'SELECT * FROM `events`'));
+  $sql));
 
 
  ?>
@@ -24,7 +36,8 @@ $myEvents = DataToObject::createEvents($data->fetch(
             <div class="event">
               <div class="content">
                 <div class="summary">
-                   <?php echo $event->getDescription();?>
+                  
+                   
                 </div>
               </div>
             </div>
@@ -32,6 +45,16 @@ $myEvents = DataToObject::createEvents($data->fetch(
         </div>
         <div class="extra content">
           <button class="ui button teal">Join Event</button>
+          <?php 
+            echo 'parti:'.$event->getParticipation();
+          ?>
+           <?php 
+                   
+                   //if(!is_null($event->getDescription()) )
+                    //echo "You are going to this event";
+                    //else
+                     echo ($event->getDescription()>0)."hi";
+                   ?>
         </div>
       </div>
 

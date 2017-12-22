@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
   -->
     <link rel="stylesheet" href="../semantic-ui/semantic.min.css" />
+    <link rel="stylesheet" href="../semantic-ui/icon.css" />
     <link rel="stylesheet" type="text/css" href="https://semantic-ui.com/dist/components/icon.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

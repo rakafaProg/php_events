@@ -68,9 +68,8 @@
             $eventsArray = [];
 
             foreach ($sqlArray as $event) {
-                array_push($eventsArray,
-                    new Event ($event)
-                );
+              $eventsArray[$event['id']] = new Event ($event);
+
             }
             return $eventsArray;
         }
@@ -113,6 +112,7 @@
         private $date;
         private $description;
         private $paticipation;
+        private $userCount;
 
         function __construct ($params) {
             $this->id = $params['id'];
@@ -120,6 +120,7 @@
             $this->date = $params['date'];
             $this->description = $params['description'];
             $this->paticipation = $params['id_user'];
+            $this->userCount = 0;
         }
 
         function getId () {
@@ -140,6 +141,15 @@
 
         function getParticipation () {
             return $this->paticipation;
+        }
+
+        function setUserCount($value)
+        {
+          $this->userCount = $value;
+        }
+
+        function getUserCount () {
+          return $this->userCount;
         }
 
     }

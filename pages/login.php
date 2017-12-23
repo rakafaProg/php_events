@@ -1,9 +1,9 @@
 <?php require_once "header.php";
 
-require_once '../data/data.php';
+
   if(isset($_POST['email']) &&  isset($_POST['password'])) {
     $data = new Data();
-    $myUser = DataToObject::createUsers($data->fetch(
+    $myUser = DataToObject2::createUsers($data->fetch(
       'SELECT * FROM ls32_users
       WHERE
         email = "'.$_POST['email'].'"
@@ -14,11 +14,24 @@ require_once '../data/data.php';
     if($myUser) {
       $_SESSION['user-name'] = $myUser[0]->getName();
       $_SESSION['user-id'] = $myUser[0]->getId();
-      header("Refresh:0; url=log-in-success.php");
 
+      echo getSuccessMssage(
+        'Wellcome back '.$myUser[0]->getName(),
+        'You will be aoutomaticly redirected to the main page.',
+        ' Go to Events Page',
+        'events.php'
+      );
+
+      header("Refresh:5; url=events.php");
     } else {
-      $invalidPassword = true;
+       echo getErrorMssage(
+         'Login Failed',
+         'You might have misspelled your email or password!',
+         'Try again',
+         'login.php'
+       );
     }
+    die;
 
   }
 
@@ -54,7 +67,7 @@ require_once '../data/data.php';
       </div>
       <div class="ui error message"></div>
     </form>
-    
+
     <div class="ui icon warning message <?php if(!isset($invalidPassword)) echo 'invisible'; ?>">
       <i class="lock icon"></i>
       <div class="content">

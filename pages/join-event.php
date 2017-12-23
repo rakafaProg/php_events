@@ -1,5 +1,5 @@
 <?php require_once "header.php";
-require_once '../data/data.php';
+
   if(!isset($userId) || !isset($_GET['eventid'])){
     echo "Something went wrong. please try again";
     die;

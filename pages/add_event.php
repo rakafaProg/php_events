@@ -1,7 +1,7 @@
 <?php require_once "header.php"; ?>
 
 <?php
-require_once '../data/data.php';
+
   if (!isset($userId)) {
     require_once "not-alowed.php";
     require_once "footer.php";
@@ -13,7 +13,7 @@ require_once '../data/data.php';
     $data = new Data();
     $res=$data->insertData('
       INSERT INTO `ls32_events`
-      (`date`, `name`, `description`) VALUES 
+      (`date`, `name`, `description`) VALUES
       ("'.$_POST['date'].'","'.$_POST['name'].'","'.$_POST['details'].'")
     ');
      echo '<br/><br/>success';
@@ -49,7 +49,7 @@ require_once '../data/data.php';
         <div class="field">
           <div class="ui input">
             <i class="calendar icon"></i>
-            <input type="date" name="date" placeholder="Date">
+            <input type="datetime-local" name="date" placeholder="Date">
           </div>
         </div>
         <div class="ui fluid large teal submit button">Save</div>

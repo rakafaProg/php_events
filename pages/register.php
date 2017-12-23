@@ -1,6 +1,6 @@
 <?php require_once "header.php";
 
-require_once '../data/data.php';
+
   if(isset($_POST['email']) &&  isset($_POST['username']) &&
   isset($_POST['password']) &&  isset($_POST['passwordrepeat'])) {
     $username = $_POST['username'];

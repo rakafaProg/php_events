@@ -1,8 +1,23 @@
 <?php session_start();
+
+  require_once '../data/bll.php';
+  require_once '../controlers/view-control.php';
+
   if(isset($_SESSION['user-id']) and isset($_SESSION['user-name'])) {
     $userId = $_SESSION['user-id'];
     $userName = $_SESSION['user-name'];
+  } else {
+    $userId = null;
   }
+
+  function tuggleVisilbe($param, $isOnlyUsers) {
+    if ($isOnlyUsers && !($param))
+      return 'invisible';
+    if (!$isOnlyUsers && ($param))
+      return 'invisible';
+    return '';
+  }
+
 
 ?>
 <!DOCTYPE html>

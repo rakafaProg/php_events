@@ -42,7 +42,7 @@
     }
 
 
-    class DataToObject {
+    class DataToObject2 {
         static function createUsers($sqlArray) {
             if($sqlArray->rowCount()==0)
               return false;
@@ -106,7 +106,7 @@
     }
 
 
-    class Event {
+    /*class Event {
         private $id;
         private $name;
         private $date;
@@ -152,7 +152,7 @@
           return $this->userCount;
         }
 
-    }
+    }*/
 
 
 ?>

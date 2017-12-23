@@ -4,6 +4,47 @@
 
   $myEvents = DataToObject::getEvents($userId);
 
+  if (isset($_GET['join'])) {
+    $tryJoin = DataToObject::joinEvent($userId, $_GET['join']);
+    if ($tryJoin)
+      echo getSuccessMssage(
+        '',
+        'You successfuly joind this event.',
+        'Go back to Events Page',
+        'events.php'
+      );
+    else {
+      echo getErrorMssage(
+        '',
+        'Something went wrong. Please try again.',
+        'Back to Events Page',
+        'events.php'
+      );
+    }
+    header("Refresh:3; url=events.php");
+    die;
+  }
+
+  if (isset($_GET['leave'])) {
+    $tryLeave = DataToObject::leaveEvent($userId, $_GET['leave']);
+    if ($tryLeave)
+      echo getSuccessMssage(
+        '',
+        'You will not be registered to this event any more.',
+        'Go back to Events Page',
+        'events.php'
+      );
+    else {
+      echo getErrorMssage(
+        '',
+        'Something went wrong. Please try again.',
+        'Back to Events Page',
+        'events.php'
+      );
+    }
+    header("Refresh:3; url=events.php");
+    die;
+  }
   //echo getcwd();
  ?>
 
@@ -49,15 +90,15 @@
 
         <div class="extra content backTeal <?= tuggleVisilbe($userId, true) ?>">
           <?php $party = $event->getParticipation();?>
-          <i class="right floated add user icon teal big <?= tuggleVisilbe($party, true) ?>"
+          <i class="right floated check circle outline icon teal big <?= tuggleVisilbe($party, true) ?>"
             title="Yor are going to this event"></i>
 
           <a class="ui button teal <?= tuggleVisilbe($party, false) ?>"
-            href="join-event.php?eventid=<?php echo $event->getId(); ?>">
+            href="events.php?join=<?php echo $event->getId(); ?>">
             Join Event
           </a>
           <a class="ui button grey <?= tuggleVisilbe($party, true) ?>"
-            href="dont-join-event.php?eventid=<?php echo $event->getId(); ?>">
+            href="events.php?leave=<?php echo $event->getId(); ?>">
             Don't go
           </a>
         </div>

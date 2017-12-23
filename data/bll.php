@@ -67,6 +67,36 @@
 
           return $eventsArray;
         }
+
+        public static function joinEvent($userId, $eventId) {
+            $sql =
+              'INSERT INTO `ls32_user_events`
+              (`id_user`, `id_event`)
+              VALUES
+              ('.$userId.','.$eventId.')
+              ';
+              $res = self::$data->insertData($sql);
+              if($res == 1)
+                return true;
+              return false;
+        }
+
+        public static function leaveEvent($userId, $eventId) {
+              $sql =
+                  'DELETE FROM `ls32_user_events`
+                  WHERE
+                  `id_user`='.$userId.'
+                  AND
+                  `id_event`='.$eventId;
+
+              $res = self::$data->insertData($sql);
+              if($res == 1)
+                return true;
+              return false;
+        }
+
+
+
     }
 
     DataToObject::init();

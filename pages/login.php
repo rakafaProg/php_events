@@ -22,7 +22,7 @@
         'events.php'
       );
 
-      header("Refresh:5; url=events.php");
+      header("Refresh:3; url=events.php");
     } else {
        echo getErrorMssage(
          'Login Failed',

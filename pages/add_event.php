@@ -3,20 +3,42 @@
 <?php
 
   if (!isset($userId)) {
-    require_once "not-alowed.php";
-    require_once "footer.php";
+    echo getErrorMssage(
+      'Not allowed',
+      'You must log in before adding events!',
+      'Home',
+      'events.php'
+    );
     die;
   }
 
   if (isset($_POST['name']) && isset($_POST['details']) && isset($_POST['date'])) {
-    //echo '<br/><br/>'.$_POST['name'].' '.$_POST['details'].' '.$_POST['date'];
+
+    if ($_POST['date'] < date("Y-m-d H:i:s")) {
+      echo getErrorMssage(
+        'Date invalid',
+        "The date of an event can't be in the past!",
+        'Try again',
+        'add_event.php'
+      );
+      header("Refresh:3; url=add_event.php");
+      die;
+    }
     $data = new Data();
     $res=$data->insertData('
       INSERT INTO `ls32_events`
       (`date`, `name`, `description`) VALUES
       ("'.$_POST['date'].'","'.$_POST['name'].'","'.$_POST['details'].'")
     ');
-     echo '<br/><br/>success';
+
+    echo getSuccessMssage(
+      'Event added successfuly',
+      "If you want to go to this event, please join in the events page",
+      'To add another event',
+      'add_event.php'
+    );
+    header("Refresh:5; url=events.php");
+    die;
   }
 ?>
 
@@ -49,7 +71,7 @@
         <div class="field">
           <div class="ui input">
             <i class="calendar icon"></i>
-            <input type="datetime-local" name="date" placeholder="Date">
+            <input type="datetime-local" name="date" placeholder="Date" required>
           </div>
         </div>
         <div class="ui fluid large teal submit button">Save</div>

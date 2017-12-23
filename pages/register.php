@@ -16,7 +16,7 @@
 
     else {
       $data = new Data();
-      $myUser = DataToObject::createUsers($data->fetch(
+      $myUser = DataToObject2::createUsers($data->fetch(
         'SELECT * FROM ls32_users
         WHERE
           email = "'.$email.'"'

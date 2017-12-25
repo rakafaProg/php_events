@@ -76,9 +76,7 @@
               ('.$userId.','.$eventId.')
               ';
               $res = self::$data->insertData($sql);
-              if($res == 1)
-                return true;
-              return false;
+              return $res['insertResult'];
         }
 
         public static function leaveEvent($userId, $eventId) {
@@ -90,12 +88,12 @@
                   `id_event`='.$eventId;
 
               $res = self::$data->insertData($sql);
-              if($res == 1)
-                return true;
-              return false;
+              return $res['insertResult'];
         }
 
+        public static function createEvent($params) {
 
+        }
 
     }
 

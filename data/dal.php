@@ -27,6 +27,15 @@
 
                 $result = $conn->query($sql);
 
+                $lastId = $conn->lastInsertId();
+
+
+                return [
+                  'recordId' => $lastId,
+                  'insertResult' => $result,
+                  'errorMassage' => 'success'
+                ];
+
                 if($result)
                   return true;
                 else
@@ -36,7 +45,12 @@
             }
             catch(PDOException $e)
             {
-                return $e->getMessage();
+                return [
+                  'recordId' => -1,
+                  'insertResult' => false,
+                  'errorMassage' => $e->getMessage()
+                ];
+
             }
         }
     }

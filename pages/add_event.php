@@ -30,14 +30,21 @@
       (`date`, `name`, `description`) VALUES
       ("'.$_POST['date'].'","'.$_POST['name'].'","'.$_POST['details'].'")
     ');
+    //echo $_POST['autoJoin'];
+    if($_POST['autoJoin'] == 'yes') {
+      header("Location: events.php?join=".$res['recordId']);
+      die;
+    }
 
+    else
+      $url = 'add_event.php';
     echo getSuccessMssage(
       'Event added successfuly',
       "If you want to go to this event, please join in the events page",
       'To add another event',
       'add_event.php'
     );
-    header("Refresh:5; url=events.php");
+    header("Refresh:3; url=events.php");
     die;
   }
 ?>
@@ -72,6 +79,12 @@
           <div class="ui input">
             <i class="calendar icon"></i>
             <input type="datetime-local" name="date" placeholder="Date" required>
+          </div>
+        </div>
+        <div class="inline field">
+          <div class="ui toggle checkbox">
+            <input name="autoJoin" type="checkbox" tabindex="0" class="hidden" value='yes' checked>
+            <label>Automaticly <u>Join</u> the event</label>
           </div>
         </div>
         <div class="ui fluid large teal submit button">Save</div>
@@ -127,6 +140,10 @@
      ;
    })
  ;
+
+ $('.ui.checkbox')
+  .checkbox()
+;
  </script>
 
 

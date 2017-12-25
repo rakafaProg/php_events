@@ -12,8 +12,7 @@
 
 
     if($myUser) {
-      $_SESSION['user-name'] = $myUser[0]->getName();
-      $_SESSION['user-id'] = $myUser[0]->getId();
+      setUser($myUser[0]->getId(), $myUser[0]->getName());
 
       echo getSuccessMssage(
         'Wellcome back '.$myUser[0]->getName(),

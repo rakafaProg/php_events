@@ -38,4 +38,9 @@
       ';
     }
 
+    function setUser($userid, $username) {
+      $_SESSION['user-name'] = $username;
+      $_SESSION['user-id'] = $userid;
+    }
+
  ?>

@@ -27,6 +27,39 @@
           if ($users >= 13)  return 5;
       }
 
+      public static function JoinOrLeaveEvent($params, $userId){
+        if (isset($params['join'])) {
+          $tryJoin = DataToObject::joinEvent($userId, $params['join']);
+          if ($tryJoin)
+            return getSuccessMssage(
+              '',
+              'You successfuly joind this event.',
+              'Go back to Events Page',
+              $_SERVER['PHP_SELF']
+            );
+        }
+
+        if (isset($params['leave'])) {
+          $tryLeave = DataToObject::leaveEvent($userId, $params['leave']);
+
+          if ($tryLeave)
+            return getSuccessMssage(
+              '',
+              'You will not be registered to this event any more.',
+              'Go back to Events Page',
+              $_SERVER['PHP_SELF']
+            );
+        }
+
+        return getErrorMssage(
+          '',
+          'Something went wrong. Please try again.',
+          'Back to Events Page',
+          $_SERVER['PHP_SELF']
+        );
+
+      }
+
     }
 
 

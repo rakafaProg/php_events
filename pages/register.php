@@ -24,30 +24,18 @@
 
 
       if(!$myUser) {
-        /*$_SESSION['user-name'] = $myUser[0]->getName();
-        $_SESSION['user-id'] = $myUser[0]->getId();*/
-
         $res=$data->insertData('INSERT INTO `ls32_users`(`name`, `email`, `password`) VALUES ("'.$username.'","'.$email.'","'.MD5($password).'")');
-        if($res==1) {
-          echo '
-          <div class="ui ten column grid">
-            <div class="row">
-              <div class="column"></div>
-              <div class="twelve wide column">
-                <div class="ui success message huge">
-                  <div class="header">
-                    Wellcome!
-                  </div>
-                  <p>Your have successfully registered.</p>
-                  <p>To start using the site, please log in.</p>
-                  <p><a href="login.php">Log in</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          ';
-
+        if($res['insertResult']) {
+          setUser($res['recordId'], $username);
+          echo getSuccessMssage(
+            'Wellcome '.$username.'!',
+            'Your have successfully registered.',
+            'To the events page.',
+            'events.php'
+          );
+          header("Refresh:3; url=events.php");
           die;
+
         } else {
           $invalidPassword = true;
           $errorMassage = "Unknown error. Please try again.";

@@ -4,48 +4,13 @@
 
   $myEvents = DataToObject::getEvents($userId);
 
-  if (isset($_GET['join'])) {
-    $tryJoin = DataToObject::joinEvent($userId, $_GET['join']);
-    if ($tryJoin)
-      echo getSuccessMssage(
-        '',
-        'You successfuly joind this event.',
-        'Go back to Events Page',
-        'events.php'
-      );
-    else {
-      echo getErrorMssage(
-        '',
-        'Something went wrong. Please try again.',
-        'Back to Events Page',
-        'events.php'
-      );
-    }
+  if (isset($_GET['join']) || isset($_GET['leave'])) {
+    $tryJoinOrLeave = EventControler::JoinOrLeaveEvent($_GET, $userId);
+    echo $tryJoinOrLeave;
     header("Refresh:3; url=events.php");
     die;
   }
-
-  if (isset($_GET['leave'])) {
-    $tryLeave = DataToObject::leaveEvent($userId, $_GET['leave']);
-    if ($tryLeave)
-      echo getSuccessMssage(
-        '',
-        'You will not be registered to this event any more.',
-        'Go back to Events Page',
-        'events.php'
-      );
-    else {
-      echo getErrorMssage(
-        '',
-        'Something went wrong. Please try again.',
-        'Back to Events Page',
-        'events.php'
-      );
-    }
-    header("Refresh:3; url=events.php");
-    die;
-  }
-  //echo getcwd();
+  
  ?>
 
 

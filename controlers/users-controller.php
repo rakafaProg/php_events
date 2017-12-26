@@ -31,6 +31,36 @@
         }
       }
 
+      public static function tryLogin ($email, $password) {
+          $res = DataToObject::getUsers([
+            'email' => $email,
+            'password' => MD5($password)
+          ]);
+
+          if ($res) {
+            setUser($res[0]->getId(), $res[0]->getName());
+            return [
+              'state' => true,
+              'msg' => getSuccessMssage (
+                  'Wellcome back '.$res[0]->getName(),
+                  'You will be aoutomaticly redirected to the main page.',
+                  ' Go to Events Page',
+                  'events.php'
+                )
+              ];
+          } else {
+            return [
+              'state' => false,
+               'msg' => getErrorMssage(
+                  'Login Failed',
+                  'You might have misspelled your email or password!',
+                  'Try again',
+                  'login.php'
+                )
+              ];
+          }
+      }
+
     }
 
 

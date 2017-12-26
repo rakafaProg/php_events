@@ -2,41 +2,20 @@
 
 
   if(isset($_POST['email']) &&  isset($_POST['password'])) {
-    $data = new Data();
-    $myUser = DataToObject2::createUsers($data->fetch(
-      'SELECT * FROM ls32_users
-      WHERE
-        email = "'.$_POST['email'].'"
-        AND password = "'.MD5($_POST['password']).'"'
-      ));
+    require_once '../controlers/users-controller.php';
 
+    $res = UsersController::tryLogin($_POST['email'], $_POST['password']);
 
-    if($myUser) {
-      setUser($myUser[0]->getId(), $myUser[0]->getName());
+    echo $res['msg'];
 
-      echo getSuccessMssage(
-        'Wellcome back '.$myUser[0]->getName(),
-        'You will be aoutomaticly redirected to the main page.',
-        ' Go to Events Page',
-        'events.php'
-      );
-
+    if ($res['state']) {
       header("Refresh:3; url=events.php");
-    } else {
-       echo getErrorMssage(
-         'Login Failed',
-         'You might have misspelled your email or password!',
-         'Try again',
-         'login.php'
-       );
     }
     die;
 
   }
 
 ?>
-
-
 
 
 <div class="ui middle aligned center aligned grid">
@@ -89,8 +68,5 @@
       max-width: 450px;
     }
   </style>
-
-
-
 
 <?php require_once "footer.php" ?>

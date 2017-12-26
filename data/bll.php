@@ -2,6 +2,7 @@
 
     require_once '../data/dal.php';
     require_once '../models/event-model.php';
+    require_once '../models/user-model.php';
 
     class DataToObject {
 
@@ -11,8 +12,20 @@
       }
 
       static function getUsers($where) {
+            $sql =
+              'SELECT * FROM `ls32_users`';
+            if (isset ($where)) {
+              $sql = $sql.' WHERE 1';
+              foreach ($where as $key => $value) {
+                $sql = $sql.' && '.$key.' = "'.$value.'"';
+              }
+            }
+
+            $sqlArray = self::$data->fetch($sql);
+            
             if($sqlArray->rowCount()==0)
               return false;
+
             $usersArray = [];
 
             foreach ($sqlArray as $user) {

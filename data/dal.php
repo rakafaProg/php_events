@@ -90,7 +90,7 @@
         }
     }
 
-    class User {
+    /*class User {
         private $id;
         private $name;
         private $email;
@@ -118,7 +118,7 @@
         function getPassword () {
             return $this->password;
         }
-    }
+    }*/
 
 
     /*class Event {

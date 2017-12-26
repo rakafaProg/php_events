@@ -46,15 +46,6 @@
       <div class="ui error message"></div>
     </form>
 
-    <div class="ui icon warning message <?php if(!isset($invalidPassword)) echo 'invisible'; ?>">
-      <i class="lock icon"></i>
-      <div class="content">
-        <div class="header">
-          Login failed!
-        </div>
-        <p>You might have misspelled your email or password!</p>
-      </div>
-    </div>
     <div class="ui message">
       New to us? <a href="register.php">Sign Up</a>
     </div>

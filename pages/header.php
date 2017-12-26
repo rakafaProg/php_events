@@ -28,11 +28,6 @@
     <title>My Events</title>
     <link rel="icon" href="../images/logo.png">
     <link rel="stylesheet" href="../style/main.css" />
-    <!--
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
-  -->
     <link rel="stylesheet" href="../semantic-ui/semantic.min.css" />
     <link rel="stylesheet" href="../semantic-ui/icon.css" />
     <link rel="stylesheet" type="text/css" href="https://semantic-ui.com/dist/components/icon.css">
@@ -51,13 +46,13 @@
   </div>
 
   <a class="item ui header teal" href="events.php">Events</a>
-  <a class="item ui header teal" href="add_event.php">Add Event</a>
-  <a class="item ui header teal <?php if(isset($userName)) echo 'invisible'; ?> " href="login.php">Log-in</a>
-  <a class="item ui header teal <?php if(isset($userName)) echo 'invisible'; ?> " href="register.php">Register</a>
-  <div class="item ui right header blue <?php if(!isset($userName)) echo 'invisible'; ?> ">
+  <a class="item ui header teal <?= tuggleVisilbe($userId, true) ?>" href="add_event.php">Add Event</a>
+  <a class="item ui header teal <?= tuggleVisilbe($userId, false) ?>" href="login.php">Log-in</a>
+  <a class="item ui header teal <?= tuggleVisilbe($userId, false) ?>" href="register.php">Register</a>
+  <div class="item ui right header blue <?= tuggleVisilbe($userId, true) ?>">
     <?php if(isset($userName)) echo "Wellcome ".$userName; ?>
   </div>
-  <a class="item ui header blue <?php if(!isset($userName)) echo 'invisible'; ?> " href="log-out.php">Sign-out</a>
+  <a class="item ui header blue <?= tuggleVisilbe($userId, true) ?>" href="log-out.php">Sign-out</a>
 
 </div>
 <p> .

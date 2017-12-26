@@ -70,7 +70,7 @@
       <div class="ui error message"></div>
     </form>
 
-    <div class="ui icon warning message <?php if(!isset($invalidPassword)) echo 'invisible'; ?>">
+    <div class="ui icon warning message <?= tuggleVisilbe($invalidPassword, true) ?>">
       <i class="lock icon"></i>
       <div class="content">
         <div class="header">

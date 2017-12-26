@@ -2,15 +2,15 @@
   require_once "header.php";
   require_once "../controlers/events-controler.php";
 
-  $myEvents = DataToObject::getEvents($userId);
-
   if (isset($_GET['join']) || isset($_GET['leave'])) {
     $tryJoinOrLeave = EventControler::JoinOrLeaveEvent($_GET, $userId);
     echo $tryJoinOrLeave;
     header("Refresh:3; url=events.php");
     die;
   }
-  
+
+  $myEvents = DataToObject::getEvents($userId);
+
  ?>
 
 

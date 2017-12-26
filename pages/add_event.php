@@ -50,10 +50,6 @@
 ?>
 
 
-
-
-
-
 <div class="ui middle aligned center aligned grid">
   <div class="column">
 
@@ -94,7 +90,6 @@
   </div>
 </div>
 
-</script>
 
 <style type="text/css">
    .column {
@@ -102,50 +97,6 @@
    }
  </style>
 
- <script>
- $(document)
-   .ready(function() {
-     $('.ui.form')
-       .form({
-         fields: {
-           name: {
-             identifier  : 'name',
-             rules: [
-               {
-                 type   : 'empty',
-                 prompt : 'Please enter event name'
-               }
-             ]
-           },
-           details: {
-             identifier  : 'details',
-             rules: [
-               {
-                 type   : 'empty',
-                 prompt : 'Please enter details'
-               }
-             ]
-           },
-           date: {
-             identifier  : 'date',
-             rules: [
-               {
-                 type   : 'empty',
-                 prompt : 'Please enter date'
-               }
-             ]
-           }
-         }
-       })
-     ;
-   })
- ;
-
- $('.ui.checkbox')
-  .checkbox()
-;
- </script>
-
-
+ <script src="../scripts/add-event-form-validation.js"> </script>
 
 <?php require_once "footer.php"; ?>

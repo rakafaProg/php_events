@@ -48,7 +48,8 @@
                 return [
                   'recordId' => -1,
                   'insertResult' => false,
-                  'errorMassage' => $e->getMessage()
+                  'errorMassage' => $e->getMessage(),
+                  'errorCode' => $e->getCode()
                 ];
 
             }

@@ -1,59 +1,34 @@
 <?php require_once "header.php";
 
-
   if(isset($_POST['email']) &&  isset($_POST['username']) &&
   isset($_POST['password']) &&  isset($_POST['passwordrepeat'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $passwordrepeat = $_POST['passwordrepeat'];
 
-    if($passwordrepeat != $password) {
+    if($_POST['passwordrepeat'] != $_POST['password']) {
       $invalidPassword = true;
       $errorMassage = "Passwords fields are not the same!";
-
     }
 
     else {
-      $data = new Data();
-      $myUser = DataToObject2::createUsers($data->fetch(
-        'SELECT * FROM ls32_users
-        WHERE
-          email = "'.$email.'"'
-        ));
+      require_once '../controlers/users-controller.php';
 
+      $res = UsersController::createUser([
+        'username' => $_POST['username'],
+        'email' => $_POST['email'],
+        'password' => $_POST['password']
+      ]);
 
-      if(!$myUser) {
-        $res=$data->insertData('INSERT INTO `ls32_users`(`name`, `email`, `password`) VALUES ("'.$username.'","'.$email.'","'.MD5($password).'")');
-        if($res['insertResult']) {
-          setUser($res['recordId'], $username);
-          echo getSuccessMssage(
-            'Wellcome '.$username.'!',
-            'Your have successfully registered.',
-            'To the events page.',
-            'events.php'
-          );
-          header("Refresh:3; url=events.php");
-          die;
-
-        } else {
-          $invalidPassword = true;
-          $errorMassage = "Unknown error. Please try again.";
-        }
-
+      if ($res['state']){
+        echo $res['msg'];
+        header("Refresh:3; url=events.php");
+        die;
       } else {
         $invalidPassword = true;
-        $errorMassage = "There is allrady an account with that email.";
+        $errorMassage = $res['msg'];
       }
     }
-
-
   }
 
 ?>
-
-
-
 
 <div class="ui middle aligned center aligned grid">
   <div class="column">
@@ -117,8 +92,6 @@
       max-width: 450px;
     }
   </style>
-
-
 
 
 <?php require_once "footer.php" ?>

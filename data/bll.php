@@ -95,6 +95,19 @@
 
         }
 
+        public static function createUser($params) {
+            $sql =
+              'INSERT INTO `ls32_users`
+              (`name`, `email`, `password`)
+              VALUES
+              ("'.$params['username'].'",
+              "'.$params['email'].'",
+              "'.MD5($params['password']).'")';
+
+            $res = self::$data->insertData($sql);
+            return $res;
+        }
+
     }
 
     DataToObject::init();

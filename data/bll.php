@@ -22,7 +22,7 @@
             }
 
             $sqlArray = self::$data->fetch($sql);
-            
+
             if($sqlArray->rowCount()==0)
               return false;
 
@@ -105,7 +105,14 @@
         }
 
         public static function createEvent($params) {
+            $sql =
+              'INSERT INTO `ls32_events`
+              (`date`, `name`, `description`) VALUES
+              ("'.$params['date'].'","'.$params['name'].'","'.$params['details'].'")
+              ';
 
+              $res = self::$data->insertData($sql);
+              return $res;
         }
 
         public static function createUser($params) {

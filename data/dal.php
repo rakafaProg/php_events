@@ -36,12 +36,6 @@
                   'errorMassage' => 'success'
                 ];
 
-                if($result)
-                  return true;
-                else
-                  return false;
-
-
             }
             catch(PDOException $e)
             {
@@ -57,37 +51,5 @@
     }
 
 
-    class DataToObject2 {
-        static function createUsers($sqlArray) {
-            if($sqlArray->rowCount()==0)
-              return false;
-            $usersArray = [];
-
-            foreach ($sqlArray as $user) {
-                array_push($usersArray,
-                    new User ([
-                        'id'=>$user['id'],
-                        'name'=>$user['name'],
-                        'email'=>$user['email'],
-                        'password'=>$user['password']
-                    ])
-                );
-            }
-            return $usersArray;
-
-        }
-        static function createEvents($sqlArray) {
-          if($sqlArray->rowCount()==0)
-            return false;
-
-            $eventsArray = [];
-
-            foreach ($sqlArray as $event) {
-              $eventsArray[$event['id']] = new Event ($event);
-
-            }
-            return $eventsArray;
-        }
-    }
 
 ?>

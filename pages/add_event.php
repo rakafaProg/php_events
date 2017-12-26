@@ -24,27 +24,29 @@
       header("Refresh:3; url=add_event.php");
       die;
     }
-    $data = new Data();
-    $res=$data->insertData('
-      INSERT INTO `ls32_events`
-      (`date`, `name`, `description`) VALUES
-      ("'.$_POST['date'].'","'.$_POST['name'].'","'.$_POST['details'].'")
-    ');
-    //echo $_POST['autoJoin'];
-    if($_POST['autoJoin'] == 'yes') {
-      header("Location: events.php?join=".$res['recordId']);
-      die;
-    }
 
-    else
-      $url = 'add_event.php';
-    echo getSuccessMssage(
-      'Event added successfuly',
-      "If you want to go to this event, please join in the events page",
-      'To add another event',
-      'add_event.php'
-    );
-    header("Refresh:3; url=events.php");
+    $res = DataToObject::createEvent($_POST);
+    if ($res['recordId'] > -1 ) {
+      if(isset($_POST['autoJoin']) && $_POST['autoJoin'] == 'yes') {
+        header("Location: events.php?join=".$res['recordId']);
+
+      }  else {
+        echo getSuccessMssage(
+          'Event added successfuly',
+          "If you want to go to this event, please join in the events page",
+          'To add another event',
+          'add_event.php'
+        );
+        header("Refresh:5; url=events.php");
+      }
+    } else {
+      echo getSuccessMssage(
+        'Something went wrong',
+        "",
+        'Please try again',
+        'add_event.php'
+      );
+    }
     die;
   }
 ?>
